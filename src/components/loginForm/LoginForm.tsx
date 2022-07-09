@@ -17,8 +17,8 @@ const LoginForm = ({}: LoginFormProps) => {
     e.preventDefault();
 
     const { data } = await axios.post('/login', {
-      id,
-      password,
+      id: id.value,
+      password: password.value,
     });
 
     // localStorage.setItem('ss_token', data.data.accessToken);
