@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
+import { LoginForm } from '../components/loginForm';
 
 const LoginPage: NextPage = () => {
   return (
@@ -14,13 +15,7 @@ const LoginPage: NextPage = () => {
           <p>login</p>
         </Link>
       </Header>
-      <Form>
-        <div>아이디</div>
-        <TextInput type='text' />
-        <div>비밀번호</div>
-        <TextInput type='password' />
-        <LoginButton disabled>로그인</LoginButton>
-      </Form>
+      <LoginForm />
     </>
   );
 };
@@ -46,6 +41,10 @@ const Form = styled.div`
 `;
 
 const TextInput = styled.input`
+  margin-top: 8px;
+  padding: 16px;
+  background-color: #f7f7fa;
+  border-radius: 12px;
   border: 1px solid #000;
 `;
 
