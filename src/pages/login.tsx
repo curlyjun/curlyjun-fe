@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
-import { LoginForm } from '../components/loginForm';
+import { LoginForm } from '@components/loginForm';
 
 const LoginPage: NextPage = () => {
   return (
