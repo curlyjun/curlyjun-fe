@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
@@ -12,7 +10,6 @@ import { dehydrate, QueryClient } from 'react-query';
 import { convertQueryStringToPositiveNumber } from '@utilities/index';
 
 const PaginationPage: NextPage = () => {
-  const router = useRouter();
   const { data } = useProductsQuery();
 
   return (
@@ -25,7 +22,7 @@ const PaginationPage: NextPage = () => {
             <Pagination />
           </>
         ) : (
-          <div>존재하지 않는 페이지 입니다.</div>
+          <NotFoundProducts>존재하지 않는 페이지 입니다.</NotFoundProducts>
         )}
       </Container>
     </>
@@ -54,4 +51,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 20px 40px;
+`;
+
+const NotFoundProducts = styled.div`
+  padding-top: 200px;
 `;
