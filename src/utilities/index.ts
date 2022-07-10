@@ -11,3 +11,15 @@ export const parseQueryString = (search: string): Record<string, string> =>
 
       return acc;
     }, {} as Record<string, string>);
+
+export const convertQueryStringToPositiveNumber = (
+  queryString: string | string[] | undefined
+): number | null => {
+  if (!queryString) return null;
+
+  const num = typeof queryString === 'string' ? Number(queryString) : Number(queryString[0]);
+
+  if (isNaN(num) || num <= 0) return null;
+
+  return num;
+};
