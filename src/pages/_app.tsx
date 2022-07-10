@@ -1,20 +1,30 @@
 import type { AppProps } from 'next/app';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://api.sixshop.dev';
 
 setupMSW();
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
   return (
-    <>
-      <GlobalStyle />
-      <Background />
-      <Content>
-        <Component {...pageProps} />
-      </Content>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <GlobalStyle />
+        <Background />
+        <Content>
+          <Component {...pageProps} />
+        </Content>
+        <ReactQueryDevtools />
+      </Hydrate>
+    </QueryClientProvider>
   );
 }
 
