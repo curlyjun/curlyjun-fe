@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import { FormEvent } from 'react';
 import * as Styled from './LoginForm.style';
 import { useFormInputValue } from './useFormInputValue';
@@ -6,6 +8,7 @@ import { useFormInputValue } from './useFormInputValue';
 interface LoginFormProps {}
 
 const LoginForm = ({}: LoginFormProps) => {
+  const router = useRouter();
   const id = useFormInputValue({
     pattern: /^[a-zA-Z\d]{5,30}$/,
   });
@@ -21,8 +24,10 @@ const LoginForm = ({}: LoginFormProps) => {
       password: password.value,
     });
 
-    // localStorage.setItem('ss_token', data.data.accessToken);
-    console.log(data);
+    Cookies.set('sixshop_user_id', data.data.user.ID);
+    Cookies.set('sixshop_access_token', data.data.accessToken);
+
+    router.push('/');
   };
 
   return (
