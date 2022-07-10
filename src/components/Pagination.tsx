@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import { usePagenation } from '@hooks/usePagination';
 import { useProductsQuery } from '@hooks/useProductsQuery';
@@ -73,6 +73,13 @@ const Page = styled.button<PageType>`
   background-color: ${({ selected }) => (selected ? '#000' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#000')};
   font-size: 20px;
+  cursor: pointer;
+
+  ${({ selected }) =>
+    selected &&
+    css`
+      pointer-events: none;
+    `}
 
   & + & {
     margin-left: 4px;
