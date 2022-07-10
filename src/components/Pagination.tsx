@@ -1,21 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import { usePagenation } from '@hooks/usePagination';
+import { useProductsQuery } from '@hooks/useProductsQuery';
+import Link from 'next/link';
 
 const Pagination = () => {
+  const { data } = useProductsQuery();
+  const { currentPage, pages, disabledNext, disabledPrev, onClickNext, onClickPrev } =
+    usePagenation(data?.totalCount);
   return (
     <Container>
-      <Button disabled>
+      <Button disabled={disabledPrev} onClick={onClickPrev}>
         <VscChevronLeft />
       </Button>
+
       <PageWrapper>
-        {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
-            {page}
-          </Page>
+        {pages.map((page) => (
+          <Link
+            key={page}
+            href={{
+              pathname: '/pagination',
+              query: {
+                page,
+              },
+            }}
+          >
+            <Page selected={page === currentPage} disabled={page === currentPage}>
+              {page}
+            </Page>
+          </Link>
         ))}
       </PageWrapper>
-      <Button disabled={false}>
+
+      <Button disabled={disabledNext} onClick={onClickNext}>
         <VscChevronRight />
       </Button>
     </Container>

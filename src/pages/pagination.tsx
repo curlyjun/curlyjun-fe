@@ -1,30 +1,53 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 
-import products from '../api/data/products.json';
 import ProductList from '../components/ProductList';
 import Pagination from '../components/Pagination';
 import { Header } from '@components/header';
+import { fetchProducts, useProductsQuery } from '@hooks/useProductsQuery';
+import { dehydrate, QueryClient } from 'react-query';
+import { convertQueryStringToPositiveNumber } from '@utilities/index';
 
 const PaginationPage: NextPage = () => {
   const router = useRouter();
-  const { page } = router.query;
+  const { data } = useProductsQuery();
 
   return (
     <>
       <Header />
       <Container>
-        <ProductList products={products.slice(0, 10)} />
-        <Pagination />
+        {data ? (
+          <>
+            <ProductList products={data?.products} />
+            <Pagination />
+          </>
+        ) : (
+          <div>존재하지 않는 페이지 입니다.</div>
+        )}
       </Container>
     </>
   );
 };
 
 export default PaginationPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const page = convertQueryStringToPositiveNumber(query.page) || 1;
+  const size = convertQueryStringToPositiveNumber(query.size) || 10;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery('products', () => fetchProducts(page, size));
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
 
 const Container = styled.div`
   display: flex;
