@@ -23,6 +23,7 @@ export const usePagenation = (totalCount: number = 1) => {
 
     return {
       currentPage: page,
+      currentSize: size,
       pages: Array.from(Array(endPage + 1 - startPage).keys()).map((i) => startPage + i),
       disabledPrev: startPage === 1,
       disabledNext: endPage === lastPage,
@@ -31,6 +32,7 @@ export const usePagenation = (totalCount: number = 1) => {
           pathname: '/pagination',
           query: {
             page: endPage - PAGE_COUNT_SIZE,
+            size,
           },
         });
       },
@@ -39,6 +41,7 @@ export const usePagenation = (totalCount: number = 1) => {
           pathname: '/pagination',
           query: {
             page: startPage + PAGE_COUNT_SIZE,
+            size,
           },
         });
       },

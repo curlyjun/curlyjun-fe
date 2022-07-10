@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const Pagination = () => {
   const { data } = useProductsQuery();
-  const { currentPage, pages, disabledNext, disabledPrev, onClickNext, onClickPrev } =
+  const { currentPage, currentSize, pages, disabledNext, disabledPrev, onClickNext, onClickPrev } =
     usePagenation(data?.totalCount);
   return (
     <Container>
@@ -23,6 +23,7 @@ const Pagination = () => {
               pathname: '/pagination',
               query: {
                 page,
+                size: currentSize,
               },
             }}
           >
