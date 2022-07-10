@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { FormEvent } from 'react';
 import * as Styled from './LoginForm.style';
 import { useFormInputValue } from './useFormInputValue';
+import * as cookieName from '@/constants/cookies';
 
 interface LoginFormProps {}
 
@@ -24,8 +25,8 @@ const LoginForm = ({}: LoginFormProps) => {
       password: password.value,
     });
 
-    Cookies.set('sixshop_user_id', data.data.user.ID);
-    Cookies.set('sixshop_access_token', data.data.accessToken);
+    Cookies.set(cookieName.USER_ID, data.data.user.ID);
+    Cookies.set(cookieName.ACCESS_TOKEN, data.data.accessToken);
 
     router.push('/');
   };

@@ -3,6 +3,7 @@ import React from 'react';
 import { LoginForm } from '@components/loginForm';
 import { fetchUser } from '@hooks/useUserQuery';
 import { Header } from '@components/header';
+import * as cookieName from '@/constants/cookies';
 
 const LoginPage: NextPage = () => {
   return (
@@ -16,7 +17,7 @@ const LoginPage: NextPage = () => {
 export default LoginPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const userId = req.cookies['sixshop_user_id'];
+  const userId = req.cookies[cookieName.USER_ID];
 
   if (userId) {
     try {
