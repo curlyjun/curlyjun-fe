@@ -23,16 +23,16 @@ const fetchUser = async () => {
 };
 
 export const useUser = (redirectToIfFound?: string) => {
-  const { data, isFetched } = useQuery('user', fetchUser);
+  const queryResult = useQuery('user', fetchUser);
   const router = useRouter();
 
   useEffect(() => {
-    if (!isFetched || !redirectToIfFound) return;
+    if (!queryResult.isFetched || !redirectToIfFound) return;
 
-    if (redirectToIfFound && data) {
+    if (redirectToIfFound && queryResult.data) {
       router.push(redirectToIfFound);
     }
-  }, [data, isFetched, redirectToIfFound, router]);
+  }, [queryResult, redirectToIfFound, router]);
 
-  return data;
+  return queryResult;
 };
