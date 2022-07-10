@@ -11,7 +11,7 @@ const USER = {
 };
 
 export const handlers = [
-  rest.post('/login', (req, res, ctx) => {
+  rest.post('https://api.sixshop.dev/login', (req, res, ctx) => {
     return res(
       ctx.json({
         data: {
@@ -22,7 +22,7 @@ export const handlers = [
     );
   }),
 
-  rest.get('/users/:userId', (req, res, ctx) => {
+  rest.get('https://api.sixshop.dev/users/:userId', (req, res, ctx) => {
     const { userId } = req.params;
 
     if (userId === USER.ID) {
@@ -45,7 +45,7 @@ export const handlers = [
     )
   }),
 
-  rest.get('/products', (req, res, ctx) => {
+  rest.get('https://api.sixshop.dev/products', (req, res, ctx) => {
     const { page = 1, size = 10 } = parseQueryString(req.url.search);
 
     const start = (Number(page) - 1) * Number(size);
@@ -73,7 +73,7 @@ export const handlers = [
     );
   }),
 
-  rest.get('/products/:id', (req, res, ctx) => {
+  rest.get('https://api.sixshop.dev/products/:id', (req, res, ctx) => {
     const { id } = req.params;
 
     const index = Number(id) - 1;
