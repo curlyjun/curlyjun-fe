@@ -53,6 +53,7 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
   &:disabled {
     color: #e2e2ea;
     cursor: default;
