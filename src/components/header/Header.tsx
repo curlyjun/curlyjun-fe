@@ -1,4 +1,4 @@
-import { useUser } from '@hooks/useUser';
+import { useUserQuery } from '@hooks/useUserQuery';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import * as Styled from './Header.style';
@@ -6,7 +6,8 @@ import * as Styled from './Header.style';
 interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
-  const user = useUser();
+  const userId = Cookies.get('sixshop_user_id');
+  const user = useUserQuery(userId);
 
   const logout = () => {
     Cookies.remove('sixshop_user_id');
