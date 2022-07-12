@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -19,16 +20,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   useScrollRestoration({ targetPathname: '/infinite-scroll', fromPathname: '/products/[id]' });
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <GlobalStyle />
-        <Background />
-        <Content>
-          <Component {...pageProps} />
-        </Content>
-        <ReactQueryDevtools />
-      </Hydrate>
-    </QueryClientProvider>
+    <>
+      <Head>
+        <title>식스샵 과제 - 박성준</title>
+        <meta name='description' content='박성준의 식스샵 프론트엔드 개발자 채용 과제입니다.' />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <GlobalStyle />
+          <Background />
+          <Content>
+            <Component {...pageProps} />
+          </Content>
+          <ReactQueryDevtools position='top-right' />
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   );
 }
 
