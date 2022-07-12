@@ -8,12 +8,12 @@ interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
   const userId = Cookies.get(cookieName.USER_ID);
-  const user = useUserQuery(userId);
+  const userQuery = useUserQuery(userId);
 
   const logout = () => {
     Cookies.remove(cookieName.USER_ID);
     Cookies.remove(cookieName.ACCESS_TOKEN);
-    user.refetch();
+    userQuery.refetch();
   };
 
   return (
@@ -21,16 +21,17 @@ const Header = ({}: HeaderProps) => {
       <Link href='/'>
         <Styled.Title>HAUS</Styled.Title>
       </Link>
-      {user.data ? (
-        <Styled.UserInfo>
-          <Styled.UserName>{user.data.NAME}</Styled.UserName>
-          <Styled.Button onClick={logout}>Logout</Styled.Button>
-        </Styled.UserInfo>
-      ) : (
-        <Link href='/login'>
-          <Styled.Button>Login</Styled.Button>
-        </Link>
-      )}
+      {userQuery.isFetched &&
+        (userQuery.data ? (
+          <Styled.UserInfo>
+            <Styled.UserName>{userQuery.data.NAME}</Styled.UserName>
+            <Styled.Button onClick={logout}>Logout</Styled.Button>
+          </Styled.UserInfo>
+        ) : (
+          <Link href='/login'>
+            <Styled.Button>Login</Styled.Button>
+          </Link>
+        ))}
     </Styled.Header>
   );
 };
