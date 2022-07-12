@@ -11,11 +11,6 @@ export const Container = styled.a`
   }
 `;
 
-export const Thumbnail = styled.img`
-  width: 100%;
-  height: 180px;
-`;
-
 export const Name = styled.div`
   margin-top: 8px;
   font-size: 16px;
