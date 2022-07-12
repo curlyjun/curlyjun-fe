@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
 import { Product } from '@/types/product';
-import { convertQueryStringToPositiveNumber } from '@/utilities/index';
+import { convertQueryStringToPositiveNumber } from '@/utilities';
 
 interface ProductsResponse {
   data: {
