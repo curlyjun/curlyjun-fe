@@ -9,13 +9,16 @@ import * as Styled from './Header.style';
 interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
-  const userId = Cookies.get(cookieName.USER_ID);
-  const userQuery = useUserQuery(userId);
+  const {
+    data: user,
+    refetch: refetchUser,
+    isFetched: isFetchedUser,
+  } = useUserQuery(Cookies.get(cookieName.USER_ID));
 
   const logout = () => {
     Cookies.remove(cookieName.USER_ID);
     Cookies.remove(cookieName.ACCESS_TOKEN);
-    userQuery.refetch();
+    refetchUser();
   };
 
   return (
@@ -23,10 +26,10 @@ const Header = ({}: HeaderProps) => {
       <Link href='/'>
         <Styled.Title>HAUS</Styled.Title>
       </Link>
-      {userQuery.isFetched &&
-        (userQuery.data ? (
+      {isFetchedUser &&
+        (user ? (
           <Styled.UserInfo>
-            <Styled.UserName>{userQuery.data.NAME}</Styled.UserName>
+            <Styled.UserName>{user.NAME}</Styled.UserName>
             <Styled.Button onClick={logout}>Logout</Styled.Button>
           </Styled.UserInfo>
         ) : (
