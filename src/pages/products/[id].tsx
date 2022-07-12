@@ -15,7 +15,10 @@ const ProductDetailPage: NextPage = () => {
       <Header />
       {data ? (
         <>
-          <Thumbnail src={data.thumbnail ? data.thumbnail : '/defaultThumbnail.jpg'} />
+          <Thumbnail
+            alt='product-thumbnail-image'
+            src={data.thumbnail ? data.thumbnail : '/defaultThumbnail.jpg'}
+          />
           <ProductInfoWrapper>
             <Name>{data.name}</Name>
             <Price>{data.price.toLocaleString('ko-KR')}원</Price>

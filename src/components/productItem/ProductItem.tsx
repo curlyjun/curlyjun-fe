@@ -14,7 +14,10 @@ const ProductItem = ({ product: { id, name, thumbnail, price } }: ProductItemPro
   return (
     <Link href={`/products/${id}`} passHref>
       <Styled.Container>
-        <LazyLoadingImage src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
+        <LazyLoadingImage
+          alt='product-thumbnail-image'
+          src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'}
+        />
         <Styled.Name>{name}</Styled.Name>
         <Styled.Price>{price.toLocaleString('ko-KR')}원</Styled.Price>
       </Styled.Container>

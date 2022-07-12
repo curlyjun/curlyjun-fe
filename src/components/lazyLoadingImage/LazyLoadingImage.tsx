@@ -17,14 +17,7 @@ const LazyLoadingImage = ({ src, ...rest }: LazyLoadingImageProps) => {
       setVisible(true);
     },
   });
-  return (
-    <Styled.Image
-      ref={ref}
-      alt='product-thumbnail-image'
-      {...rest}
-      src={visible ? src : '/defaultThumbnail.jpg'}
-    />
-  );
+  return <Styled.Image ref={ref} {...rest} src={visible ? src : '/defaultThumbnail.jpg'} />;
 };
 
 export default LazyLoadingImage;
