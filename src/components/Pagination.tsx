@@ -3,8 +3,8 @@ import React from 'react';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import styled, { css } from 'styled-components';
 
+import { useProductsQuery } from '@/hooks/queries/useProductsQuery';
 import { usePagenation } from '@/hooks/usePagination';
-import { useProductsQuery } from '@/hooks/useProductsQuery';
 
 const Pagination = () => {
   const { data } = useProductsQuery();

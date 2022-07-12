@@ -4,7 +4,7 @@ import React from 'react';
 import { Header } from '@/components/header';
 import { LoginForm } from '@/components/loginForm';
 import * as cookieName from '@/constants/cookies';
-import { fetchUser } from '@/hooks/useUserQuery';
+import { fetchUser } from '@/hooks/queries/useUserQuery';
 
 const LoginPage: NextPage = () => {
   return (

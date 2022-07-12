@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import Link from 'next/link';
 
 import * as cookieName from '@/constants/cookies';
-import { useUserQuery } from '@/hooks/useUserQuery';
+import { useUserQuery } from '@/hooks/queries/useUserQuery';
 
 import * as Styled from './Header.style';
 

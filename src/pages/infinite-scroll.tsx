@@ -5,11 +5,11 @@ import styled from 'styled-components';
 
 import { Header } from '@/components/header';
 import ProductList from '@/components/ProductList';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import {
-  fetchProductsForInfinite,
   useProductsInfiniteQuery,
-} from '@/hooks/useProductsInfiniteQuery';
+  fetchProductsForInfinite,
+} from '@/hooks/queries/useProductsInfiniteQuery';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const InfiniteScrollPage: NextPage = () => {
   const ref = useRef(null);

@@ -4,7 +4,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import { Header } from '@/components/header';
-import { fetchProduct, useProductQuery } from '@/hooks/useProductQuery';
+import { fetchProduct, useProductQuery } from '@/hooks/queries/useProductQuery';
 
 const ProductDetailPage: NextPage = () => {
   const { data } = useProductQuery();

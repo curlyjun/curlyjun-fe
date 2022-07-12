@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Header } from '@/components/header';
 import Pagination from '@/components/Pagination';
 import ProductList from '@/components/ProductList';
-import { useProductsQuery, fetchProducts } from '@/hooks/useProductsQuery';
+import { useProductsQuery, fetchProducts } from '@/hooks/queries/useProductsQuery';
 import { convertQueryStringToPositiveNumber } from '@/utilities/index';
 
 const PaginationPage: NextPage = () => {
