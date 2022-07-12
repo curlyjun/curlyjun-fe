@@ -1,24 +1,50 @@
-import Link from 'next/link';
-import type { NextPage } from 'next';
-import React from 'react';
+import type { GetStaticProps, NextPage } from 'next';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-import products from '../api/data/products.json';
-import ProductList from '../components/ProductList';
 import { Header } from '@components/header';
+import { dehydrate, QueryClient } from 'react-query';
+import {
+  fetchProductsForInfinite,
+  useProductsInfiniteQuery,
+} from '@hooks/useProductsInfiniteQuery';
+import ProductList from '@components/ProductList';
+import { useIntersectionObserver } from '@hooks/useIntersectionObserver';
 
 const InfiniteScrollPage: NextPage = () => {
+  const ref = useRef(null);
+  const { data, fetchNextPage } = useProductsInfiniteQuery();
+  useIntersectionObserver({
+    targetRef: ref,
+    onIntersect: fetchNextPage,
+  });
+
   return (
     <>
       <Header />
       <Container>
-        <ProductList products={products} />
+        {data?.pages.map((page, idx) => (
+          <ProductList key={`infinite-${idx}`} products={page?.products} />
+        ))}
+        <div ref={ref} />
       </Container>
     </>
   );
 };
 
 export default InfiniteScrollPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery('infinite-products', () => fetchProductsForInfinite(1));
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
 
 const Container = styled.div`
   display: flex;
