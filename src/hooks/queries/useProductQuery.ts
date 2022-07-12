@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
+import * as queryKeys from '@/constants/queryKeys';
 import { Product } from '@/types/product';
 
 interface ProductResponse {
@@ -19,5 +20,5 @@ export const fetchProduct = async (id: string) => {
 export const useProductQuery = () => {
   const { query } = useRouter();
 
-  return useQuery(['product', query.id], () => fetchProduct(query.id as string));
+  return useQuery([queryKeys.PRODUCT, query.id], () => fetchProduct(query.id as string));
 };

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
+import * as queryKeys from '@/constants/queryKeys';
+
 interface UserResponse {
   data: {
     user: {
@@ -19,5 +21,5 @@ export const fetchUser = async (userId: string | undefined) => {
 };
 
 export const useUserQuery = (userId: string | undefined) => {
-  return useQuery(['user', userId], () => fetchUser(userId));
+  return useQuery([queryKeys.USER, userId], () => fetchUser(userId));
 };

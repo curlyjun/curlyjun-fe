@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
+import * as queryKeys from '@/constants/queryKeys';
 import { Product } from '@/types/product';
 import { convertQueryStringToPositiveNumber } from '@/utilities';
 
@@ -28,7 +29,9 @@ export const useProductsPaginationQuery = () => {
   const page = convertQueryStringToPositiveNumber(query.page) || 1;
   const size = convertQueryStringToPositiveNumber(query.size) || 10;
 
-  const queryResult = useQuery(['products', size, page], () => fetchProducts(page, size));
+  const queryResult = useQuery([queryKeys.PRODUCTS_PAGINATION, size, page], () =>
+    fetchProducts(page, size)
+  );
 
   return queryResult;
 };

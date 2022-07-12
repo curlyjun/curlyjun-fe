@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { Header } from '@/components/header';
 import { ProductList } from '@/components/productList';
+import * as queryKeys from '@/constants/queryKeys';
 import {
   useProductsInfiniteQuery,
   fetchProductsForInfinite,
@@ -37,7 +38,9 @@ export default InfiniteScrollPage;
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchInfiniteQuery('infinite-products', () => fetchProductsForInfinite(1));
+  await queryClient.prefetchInfiniteQuery(queryKeys.PRODUCTS_INFINITE, () =>
+    fetchProductsForInfinite(1)
+  );
 
   return {
     props: {

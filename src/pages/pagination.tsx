@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Header } from '@/components/header';
 import { Pagination } from '@/components/pagination';
 import { ProductList } from '@/components/productList';
+import * as queryKeys from '@/constants/queryKeys';
 import {
   fetchProducts,
   useProductsPaginationQuery,
@@ -40,7 +41,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['products', size, page], () => fetchProducts(page, size));
+  await queryClient.prefetchQuery([queryKeys.PRODUCTS_PAGINATION, size, page], () =>
+    fetchProducts(page, size)
+  );
 
   return {
     props: {

@@ -1,5 +1,7 @@
 import { useInfiniteQuery } from 'react-query';
 
+import * as queryKeys from '@/constants/queryKeys';
+
 import { fetchProducts } from './useProductsPaginationQuery';
 
 export const fetchProductsForInfinite = async (size: number) => {
@@ -15,7 +17,7 @@ export const fetchProductsForInfinite = async (size: number) => {
 
 export const useProductsInfiniteQuery = () => {
   return useInfiniteQuery(
-    'infinite-products',
+    queryKeys.PRODUCTS_INFINITE,
     ({ pageParam }) => fetchProductsForInfinite(pageParam),
     {
       getNextPageParam: (lastPage) => {

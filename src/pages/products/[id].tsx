@@ -4,6 +4,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import { Header } from '@/components/header';
+import * as queryKeys from '@/constants/queryKeys';
 import { fetchProduct, useProductQuery } from '@/hooks/queries/useProductQuery';
 
 const ProductDetailPage: NextPage = () => {
@@ -33,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const productId = query.id as string;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(['product', productId], () => fetchProduct(productId));
+  await queryClient.prefetchQuery([queryKeys.PRODUCT, productId], () => fetchProduct(productId));
 
   return {
     props: {
