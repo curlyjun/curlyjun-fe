@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Header } from '@/components/header';
 import { Pagination } from '@/components/pagination';
-import { ProductList } from '@/components/ProductList';
+import { ProductList } from '@/components/productList';
 import { useProductsQuery, fetchProducts } from '@/hooks/queries/useProductsQuery';
 import { convertQueryStringToPositiveNumber } from '@/utilities';
 

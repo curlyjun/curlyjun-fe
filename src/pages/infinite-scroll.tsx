@@ -4,7 +4,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import { Header } from '@/components/header';
-import ProductList from '@/components/ProductList';
+import { ProductList } from '@/components/productList';
 import {
   useProductsInfiniteQuery,
   fetchProductsForInfinite,
