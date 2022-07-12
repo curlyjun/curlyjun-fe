@@ -23,7 +23,7 @@ const Header = ({}: HeaderProps) => {
 
   return (
     <Styled.Header>
-      <Link href='/'>
+      <Link href='/' passHref>
         <Styled.Title>HAUS</Styled.Title>
       </Link>
       {isFetchedUser &&
@@ -33,7 +33,7 @@ const Header = ({}: HeaderProps) => {
             <Styled.Button onClick={logout}>Logout</Styled.Button>
           </Styled.UserInfo>
         ) : (
-          <Link href='/login'>
+          <Link href='/login' passHref>
             <Styled.A>Login</Styled.A>
           </Link>
         ))}

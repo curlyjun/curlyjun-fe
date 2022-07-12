@@ -10,7 +10,7 @@ interface ProductItemProps {
 
 const ProductItem = ({ product: { id, name, thumbnail, price } }: ProductItemProps) => {
   return (
-    <Link href={`/products/${id}`}>
+    <Link href={`/products/${id}`} passHref>
       <Styled.Container>
         <Styled.Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
         <Styled.Name>{name}</Styled.Name>

@@ -29,6 +29,7 @@ const Pagination = ({}: PaginationProps) => {
                 size: currentSize,
               },
             }}
+            passHref
           >
             <Styled.Page selected={page === currentPage}>{page}</Styled.Page>
           </Link>
