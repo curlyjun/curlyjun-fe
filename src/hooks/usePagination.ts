@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
-import { convertQueryStringToPositiveNumber } from '@/utilities/index';
+import { convertQueryStringToPositiveNumber } from '@/utilities';
 
 const PAGE_COUNT_SIZE = 5;
 

@@ -7,7 +7,7 @@ import { Header } from '@/components/header';
 import Pagination from '@/components/Pagination';
 import ProductList from '@/components/ProductList';
 import { useProductsQuery, fetchProducts } from '@/hooks/queries/useProductsQuery';
-import { convertQueryStringToPositiveNumber } from '@/utilities/index';
+import { convertQueryStringToPositiveNumber } from '@/utilities';
 
 const PaginationPage: NextPage = () => {
   const { data } = useProductsQuery();
