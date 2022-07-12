@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
 import axios from 'axios';
+import { useScrollRestoration } from '@hooks/useScrollRestoration';
 
 axios.defaults.baseURL = 'https://api.sixshop.dev';
 
@@ -14,6 +15,8 @@ setupMSW();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
+  useScrollRestoration({ targetPathname: '/infinite-scroll', fromPathname: '/products/[id]' });
+
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
