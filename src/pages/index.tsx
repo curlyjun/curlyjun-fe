@@ -1,7 +1,8 @@
-import Link from 'next/link';
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
+
 import { Header } from '@/components/header';
 
 const HomePage: NextPage = () => {

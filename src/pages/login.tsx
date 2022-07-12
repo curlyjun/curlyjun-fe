@@ -1,8 +1,9 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
-import * as cookieName from '@/constants/cookies';
+
 import { Header } from '@/components/header';
 import { LoginForm } from '@/components/loginForm';
+import * as cookieName from '@/constants/cookies';
 import { fetchUser } from '@/hooks/useUserQuery';
 
 const LoginPage: NextPage = () => {

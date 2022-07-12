@@ -1,8 +1,8 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 import styled from 'styled-components';
 
-import { dehydrate, QueryClient } from 'react-query';
 import { Header } from '@/components/header';
 import Pagination from '@/components/Pagination';
 import ProductList from '@/components/ProductList';

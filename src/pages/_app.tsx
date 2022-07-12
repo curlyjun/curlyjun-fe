@@ -1,13 +1,14 @@
+import axios from 'axios';
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
-import styled from 'styled-components';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import styled from 'styled-components';
+
+import { useScrollRestoration } from '@/hooks/useScrollRestoration';
 
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
-import axios from 'axios';
-import { useScrollRestoration } from '@/hooks/useScrollRestoration';
 
 axios.defaults.baseURL = 'https://api.sixshop.dev';
 

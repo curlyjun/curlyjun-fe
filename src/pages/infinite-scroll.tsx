@@ -1,15 +1,15 @@
 import type { GetStaticProps, NextPage } from 'next';
 import React, { useRef } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import { Header } from '@/components/header';
-import { dehydrate, QueryClient } from 'react-query';
+import ProductList from '@/components/ProductList';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import {
   fetchProductsForInfinite,
   useProductsInfiniteQuery,
 } from '@/hooks/useProductsInfiniteQuery';
-import ProductList from '@/components/ProductList';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const InfiniteScrollPage: NextPage = () => {
   const ref = useRef(null);

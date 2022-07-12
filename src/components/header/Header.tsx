@@ -1,8 +1,10 @@
-import { useUserQuery } from '@/hooks/useUserQuery';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
-import * as Styled from './Header.style';
+
 import * as cookieName from '@/constants/cookies';
+import { useUserQuery } from '@/hooks/useUserQuery';
+
+import * as Styled from './Header.style';
 
 interface HeaderProps {}
 

@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from 'react-query';
+
 import { fetchProducts } from './useProductsQuery';
 
 export const fetchProductsForInfinite = async (size: number) => {

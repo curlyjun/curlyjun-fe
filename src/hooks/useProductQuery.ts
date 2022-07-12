@@ -1,7 +1,8 @@
-import { Product } from '@/types/product';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
+
+import { Product } from '@/types/product';
 
 interface ProductResponse {
   data: {

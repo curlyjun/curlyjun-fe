@@ -2,9 +2,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { FormEvent } from 'react';
+
+import * as cookieName from '@/constants/cookies';
+
 import * as Styled from './LoginForm.style';
 import { useFormInputValue } from './useFormInputValue';
-import * as cookieName from '@/constants/cookies';
 
 interface LoginFormProps {}
 
