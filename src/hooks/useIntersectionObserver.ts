@@ -1,20 +1,27 @@
 import { RefObject, useEffect } from 'react';
 
+interface UseIntersectionObserverParams {
+  targetRef: RefObject<HTMLElement>;
+  rootMargin?: string | undefined;
+  onIntersect: () => void;
+}
+
 export const useIntersectionObserver = ({
   targetRef,
+  rootMargin,
   onIntersect,
-}: {
-  targetRef: RefObject<HTMLElement>;
-  onIntersect: () => void;
-}) => {
+}: UseIntersectionObserverParams) => {
   useEffect(() => {
     if (!targetRef.current) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        entry.isIntersecting && onIntersect();
-      });
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.isIntersecting && onIntersect();
+        });
+      },
+      { rootMargin }
+    );
 
     targetRef.current && observer.observe(targetRef.current);
 
