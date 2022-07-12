@@ -2,12 +2,12 @@ import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 
-import ProductList from '../components/ProductList';
-import Pagination from '../components/Pagination';
-import { Header } from '@components/header';
-import { fetchProducts, useProductsQuery } from '@hooks/useProductsQuery';
 import { dehydrate, QueryClient } from 'react-query';
-import { convertQueryStringToPositiveNumber } from '@utilities/index';
+import { Header } from '@/components/header';
+import Pagination from '@/components/Pagination';
+import ProductList from '@/components/ProductList';
+import { useProductsQuery, fetchProducts } from '@/hooks/useProductsQuery';
+import { convertQueryStringToPositiveNumber } from '@/utilities/index';
 
 const PaginationPage: NextPage = () => {
   const { data } = useProductsQuery();

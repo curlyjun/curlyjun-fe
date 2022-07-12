@@ -1,4 +1,4 @@
-import { useUserQuery } from '@hooks/useUserQuery';
+import { useUserQuery } from '@/hooks/useUserQuery';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import * as Styled from './Header.style';

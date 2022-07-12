@@ -1,7 +1,6 @@
+import { Product } from '@/types/product';
 import Link from 'next/link';
 import styled from 'styled-components';
-
-import { Product } from '../types/product';
 
 type ProductItemProps = {
   product: Product;

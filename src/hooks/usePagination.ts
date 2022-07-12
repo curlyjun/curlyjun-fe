@@ -1,4 +1,4 @@
-import { convertQueryStringToPositiveNumber } from '@utilities/index';
+import { convertQueryStringToPositiveNumber } from '@/utilities/index';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 

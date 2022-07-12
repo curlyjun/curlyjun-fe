@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import { usePagenation } from '@hooks/usePagination';
-import { useProductsQuery } from '@hooks/useProductsQuery';
+import { usePagenation } from '@/hooks/usePagination';
+import { useProductsQuery } from '@/hooks/useProductsQuery';
 import Link from 'next/link';
 
 const Pagination = () => {

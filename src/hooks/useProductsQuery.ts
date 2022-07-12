@@ -1,5 +1,5 @@
-import { Product } from '#types/product';
-import { convertQueryStringToPositiveNumber } from '@utilities/index';
+import { Product } from '@/types/product';
+import { convertQueryStringToPositiveNumber } from '@/utilities/index';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';

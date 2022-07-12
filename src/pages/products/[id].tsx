@@ -1,10 +1,9 @@
-import Link from 'next/link';
 import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 
-import { Header } from '@components/header';
-import { fetchProduct, useProductQuery } from '@hooks/useProductQuery';
+import { Header } from '@/components/header';
+import { fetchProduct, useProductQuery } from '@/hooks/useProductQuery';
 import { dehydrate, QueryClient } from 'react-query';
 
 const ProductDetailPage: NextPage = () => {
