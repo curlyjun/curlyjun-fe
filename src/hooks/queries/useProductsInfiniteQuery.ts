@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from 'react-query';
 
-import { fetchProducts } from './useProductsQuery';
+import { fetchProducts } from './useProductsPaginationQuery';
 
 export const fetchProductsForInfinite = async (size: number) => {
   if (!size) size = 1;

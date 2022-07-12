@@ -1,16 +1,19 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
-import { dehydrate, QueryClient } from 'react-query';
+import { QueryClient, dehydrate } from 'react-query';
 import styled from 'styled-components';
 
 import { Header } from '@/components/header';
 import { Pagination } from '@/components/pagination';
 import { ProductList } from '@/components/productList';
-import { useProductsQuery, fetchProducts } from '@/hooks/queries/useProductsQuery';
+import {
+  fetchProducts,
+  useProductsPaginationQuery,
+} from '@/hooks/queries/useProductsPaginationQuery';
 import { convertQueryStringToPositiveNumber } from '@/utilities';
 
 const PaginationPage: NextPage = () => {
-  const { data } = useProductsQuery();
+  const { data } = useProductsPaginationQuery();
 
   return (
     <>
@@ -37,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('products', () => fetchProducts(page, size));
+  await queryClient.prefetchQuery(['products', size, page], () => fetchProducts(page, size));
 
   return {
     props: {

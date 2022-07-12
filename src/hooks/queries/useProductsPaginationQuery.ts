@@ -13,17 +13,22 @@ interface ProductsResponse {
 }
 
 export const fetchProducts = async (page: number, size: number) => {
-  const { data } = await axios.get<ProductsResponse>(`/products?page=${page}&size=${size}`);
+  const { data } = await axios.get<ProductsResponse>('/products', {
+    params: {
+      page,
+      size,
+    },
+  });
 
   return data.data;
 };
 
-export const useProductsQuery = () => {
+export const useProductsPaginationQuery = () => {
   const { query } = useRouter();
   const page = convertQueryStringToPositiveNumber(query.page) || 1;
   const size = convertQueryStringToPositiveNumber(query.size) || 10;
 
-  const queryResult = useQuery('products', () => fetchProducts(page, size));
+  const queryResult = useQuery(['products', size, page], () => fetchProducts(page, size));
 
   return queryResult;
 };

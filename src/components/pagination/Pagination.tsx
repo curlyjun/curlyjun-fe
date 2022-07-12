@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
-import { useProductsQuery } from '@/hooks/queries/useProductsQuery';
+import { useProductsPaginationQuery } from '@/hooks/queries/useProductsPaginationQuery';
 import { usePagenation } from '@/hooks/usePagination';
 
 import * as Styled from './Pagination.style';
@@ -9,7 +9,7 @@ import * as Styled from './Pagination.style';
 interface PaginationProps {}
 
 const Pagination = ({}: PaginationProps) => {
-  const { data } = useProductsQuery();
+  const { data } = useProductsPaginationQuery();
   const { currentPage, currentSize, pages, disabledNext, disabledPrev, onClickNext, onClickPrev } =
     usePagenation(data?.totalCount);
   return (
