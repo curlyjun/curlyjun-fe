@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useQuery } from 'react-query';
 
 interface UserResponse {
@@ -20,5 +19,5 @@ export const fetchUser = async (userId: string | undefined) => {
 };
 
 export const useUserQuery = (userId: string | undefined) => {
-  return useQuery('user', () => fetchUser(userId));
+  return useQuery(['user', userId], () => fetchUser(userId));
 };
