@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Header = styled.header`
   display: flex;
@@ -20,7 +20,7 @@ export const UserName = styled.span`
   font-weight: bold;
 `;
 
-export const Button = styled.button`
+const buttonStyle = css`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -34,4 +34,12 @@ export const Button = styled.button`
   :hover {
     background-color: #5553c4;
   }
+`;
+
+export const A = styled.a`
+  ${buttonStyle}
+`;
+
+export const Button = styled.button`
+  ${buttonStyle}
 `;

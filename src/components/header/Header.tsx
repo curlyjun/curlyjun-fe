@@ -29,7 +29,7 @@ const Header = ({}: HeaderProps) => {
           </Styled.UserInfo>
         ) : (
           <Link href='/login'>
-            <Styled.Button>Login</Styled.Button>
+            <Styled.A>Login</Styled.A>
           </Link>
         ))}
     </Styled.Header>

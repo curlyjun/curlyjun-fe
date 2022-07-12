@@ -27,9 +27,7 @@ const Pagination = () => {
               },
             }}
           >
-            <Page selected={page === currentPage} disabled={page === currentPage}>
-              {page}
-            </Page>
+            <Page selected={page === currentPage}>{page}</Page>
           </Link>
         ))}
       </PageWrapper>
@@ -70,12 +68,11 @@ type PageType = {
   selected: boolean;
 };
 
-const Page = styled.button<PageType>`
+const Page = styled.a<PageType>`
   padding: 4px 6px;
   background-color: ${({ selected }) => (selected ? '#000' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#000')};
   font-size: 20px;
-  cursor: pointer;
 
   ${({ selected }) =>
     selected &&
