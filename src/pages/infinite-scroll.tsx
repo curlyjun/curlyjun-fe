@@ -1,51 +1,36 @@
-import type { GetStaticProps, NextPage } from 'next';
-import React, { useRef } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
+import type { NextPage } from 'next';
+import React from 'react';
 import styled from 'styled-components';
 
+import { IntersectionChecker } from '@/components/intersectionChecker';
 import { ProductList } from '@/components/productList';
-import * as queryKeys from '@/constants/queryKeys';
-import {
-  useProductsInfiniteQuery,
-  fetchProductsForInfinite,
-} from '@/hooks/queries/useProductsInfiniteQuery';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { SkeletonProductList } from '@/components/skeletonProductList';
+import { useProductsInfiniteQuery } from '@/hooks/queries/useProductsInfiniteQuery';
 
 const InfiniteScrollPage: NextPage = () => {
-  const ref = useRef(null);
-  const { data, fetchNextPage } = useProductsInfiniteQuery();
-  useIntersectionObserver({
-    targetRef: ref,
-    onIntersect: fetchNextPage,
-  });
+  const { data, isFetched, fetchNextPage } = useProductsInfiniteQuery();
+
+  if (!isFetched || !data) {
+    return (
+      <Container>
+        <SkeletonProductList />
+      </Container>
+    );
+  }
 
   return (
     <Container>
       {data?.pages.map((page, idx) => (
         <ProductList key={`infinite-${idx}`} products={page?.products} />
       ))}
-      <div ref={ref} />
+      <IntersectionChecker onIntersect={fetchNextPage} />
     </Container>
   );
 };
 
 export default InfiniteScrollPage;
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchInfiniteQuery(queryKeys.PRODUCTS_INFINITE, () =>
-    fetchProductsForInfinite(1)
-  );
-
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-};
-
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;

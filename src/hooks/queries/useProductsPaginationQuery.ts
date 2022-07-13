@@ -25,12 +25,15 @@ export const fetchProducts = async (page: number, size: number) => {
 };
 
 export const useProductsPaginationQuery = () => {
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
+
   const page = convertQueryStringToPositiveNumber(query.page) || 1;
   const size = convertQueryStringToPositiveNumber(query.size) || 10;
 
-  const queryResult = useQuery([queryKeys.PRODUCTS_PAGINATION, size, page], () =>
-    fetchProducts(page, size)
+  const queryResult = useQuery(
+    [queryKeys.PRODUCTS_PAGINATION, size, page],
+    () => fetchProducts(page, size),
+    { enabled: isReady }
   );
 
   return queryResult;
