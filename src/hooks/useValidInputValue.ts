@@ -1,7 +1,12 @@
 import { useState, ChangeEvent } from 'react';
 
-export const useFormInputValue = ({ pattern }: { pattern: RegExp }) => {
-  const [inputValue, setInputValue] = useState<string>('');
+interface UseValidInputValueParams {
+  initalValue?: string;
+  pattern: RegExp;
+}
+
+export const useValidInputValue = ({ initalValue = '', pattern }: UseValidInputValueParams) => {
+  const [inputValue, setInputValue] = useState<string>(initalValue);
   const [isValid, setIsValid] = useState<boolean>(false);
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 

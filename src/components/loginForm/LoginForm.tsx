@@ -4,18 +4,18 @@ import { useRouter } from 'next/router';
 import { FormEvent } from 'react';
 
 import * as cookieName from '@/constants/cookies';
+import { useValidInputValue } from '@/hooks/useValidInputValue';
 
 import * as Styled from './LoginForm.style';
-import { useFormInputValue } from './useFormInputValue';
 
 interface LoginFormProps {}
 
 const LoginForm = ({}: LoginFormProps) => {
   const router = useRouter();
-  const id = useFormInputValue({
+  const id = useValidInputValue({
     pattern: /^[a-zA-Z\d]{5,30}$/,
   });
-  const password = useFormInputValue({
+  const password = useValidInputValue({
     pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/,
   });
 
