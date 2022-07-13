@@ -6,6 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import styled from 'styled-components';
 
+import { Header } from '@/components/header';
 import { API_SERVER_BASE_URL } from '@/constants/urls';
 import { useScrollRestoration } from '@/hooks/useScrollRestoration';
 
@@ -31,6 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <GlobalStyle />
           <Background />
           <Content>
+            <Header />
             <Component {...pageProps} />
           </Content>
           <ReactQueryDevtools position='top-right' />

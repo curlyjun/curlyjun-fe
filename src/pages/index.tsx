@@ -3,12 +3,9 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
-import { Header } from '@/components/header';
-
 const HomePage: NextPage = () => {
   return (
     <>
-      <Header />
       <Container>
         <Link href='/pagination?page=1' passHref>
           <StyledLink>pagination</StyledLink>
