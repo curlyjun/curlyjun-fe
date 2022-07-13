@@ -6,12 +6,13 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import styled from 'styled-components';
 
+import { API_SERVER_BASE_URL } from '@/constants/urls';
 import { useScrollRestoration } from '@/hooks/useScrollRestoration';
 
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
 
-axios.defaults.baseURL = 'https://api.sixshop.dev';
+axios.defaults.baseURL = API_SERVER_BASE_URL;
 
 setupMSW();
 
