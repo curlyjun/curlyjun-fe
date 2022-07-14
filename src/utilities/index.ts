@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const parseQueryString = (search: string): Record<string, string> =>
   (search || '')
     .replace(/^\?/g, '')
@@ -22,4 +24,8 @@ export const convertQueryStringToPositiveNumber = (
   if (isNaN(num) || num <= 0) return null;
 
   return num;
+};
+
+export const isAxiosNotFoundedError = (error: unknown) => {
+  return axios.isAxiosError(error) && error.response?.status === 404;
 };

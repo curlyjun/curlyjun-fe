@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 
 import * as queryKeys from '@/constants/queryKeys';
 import { Product } from '@/types/product';
-import { convertQueryStringToPositiveNumber } from '@/utilities';
+import { convertQueryStringToPositiveNumber, isAxiosNotFoundedError } from '@/utilities';
 
 interface ProductsResponse {
   data: {
@@ -14,14 +14,19 @@ interface ProductsResponse {
 }
 
 export const fetchProducts = async (page: number, size: number) => {
-  const { data } = await axios.get<ProductsResponse>('/products', {
-    params: {
-      page,
-      size,
-    },
-  });
+  try {
+    const { data } = await axios.get<ProductsResponse>('/products', {
+      params: {
+        page,
+        size,
+      },
+    });
 
-  return data.data;
+    return data.data;
+  } catch (error) {
+    if (isAxiosNotFoundedError(error)) return null;
+    throw error;
+  }
 };
 
 export const useProductsPaginationQuery = () => {

@@ -6,6 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import styled from 'styled-components';
 
+import { ErrorBoundary } from '@/components/errorBoundary';
 import { Header } from '@/components/header';
 import { API_SERVER_BASE_URL } from '@/constants/urls';
 import { useScrollRestoration } from '@/hooks/useScrollRestoration';
@@ -18,7 +19,9 @@ axios.defaults.baseURL = API_SERVER_BASE_URL;
 setupMSW();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () => new QueryClient({ defaultOptions: { queries: { useErrorBoundary: true, retry: 1 } } })
+  );
   useScrollRestoration({ targetPathname: '/infinite-scroll', fromPathname: '/products/[id]' });
 
   return (
@@ -32,8 +35,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           <GlobalStyle />
           <Background />
           <Content>
-            <Header />
-            <Component {...pageProps} />
+            <ErrorBoundary>
+              <Header />
+              <Component {...pageProps} />
+            </ErrorBoundary>
           </Content>
           <ReactQueryDevtools position='top-right' />
         </Hydrate>

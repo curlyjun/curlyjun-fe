@@ -5,11 +5,14 @@ import * as queryKeys from '@/constants/queryKeys';
 import { fetchProducts } from './useProductsPaginationQuery';
 
 export const fetchProductsForInfinite = async (size: number) => {
-  const { products, totalCount } = await fetchProducts(size, 16);
-  const isLast = size * 16 >= totalCount;
+  const result = await fetchProducts(size, 16);
+
+  if (!result) return null;
+
+  const isLast = size * 16 >= result.totalCount;
   return {
     isLast,
-    products,
+    products: result.products,
     nextPage: size + 1,
   };
 };
@@ -20,7 +23,7 @@ export const useProductsInfiniteQuery = () => {
     ({ pageParam = 1 }) => fetchProductsForInfinite(pageParam),
     {
       getNextPageParam: (lastPage) => {
-        if (lastPage.isLast) return;
+        if (!lastPage || lastPage.isLast) return;
 
         return lastPage.nextPage;
       },

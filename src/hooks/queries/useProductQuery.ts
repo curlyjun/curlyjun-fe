@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 
 import * as queryKeys from '@/constants/queryKeys';
 import { Product } from '@/types/product';
+import { isAxiosNotFoundedError } from '@/utilities';
 
 interface ProductResponse {
   data: {
@@ -12,9 +13,13 @@ interface ProductResponse {
 }
 
 export const fetchProduct = async (id: string) => {
-  const { data } = await axios.get<ProductResponse>(`/products/${id}`);
-
-  return data.data.product;
+  try {
+    const { data } = await axios.get<ProductResponse>(`/products/${id}`);
+    return data.data.product;
+  } catch (error) {
+    if (isAxiosNotFoundedError(error)) return null;
+    throw error;
+  }
 };
 
 export const useProductQuery = () => {
