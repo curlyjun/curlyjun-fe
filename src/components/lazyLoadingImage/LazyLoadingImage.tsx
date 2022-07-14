@@ -5,6 +5,9 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 import * as Styled from './LazyLoadingImage.style';
 
+const PLACEHOLDER_IMG =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAuMB8DtXNJsAAAAASUVORK5CYII=';
+
 interface LazyLoadingImageProps extends ImgHTMLAttributes<HTMLImageElement> {}
 
 const LazyLoadingImage = ({ src, ...rest }: LazyLoadingImageProps) => {
@@ -17,7 +20,7 @@ const LazyLoadingImage = ({ src, ...rest }: LazyLoadingImageProps) => {
       setVisible(true);
     },
   });
-  return <Styled.Image ref={ref} {...rest} src={visible ? src : '/defaultThumbnail.jpg'} />;
+  return <Styled.Image ref={ref} {...rest} src={visible ? src : PLACEHOLDER_IMG} />;
 };
 
 export default LazyLoadingImage;
