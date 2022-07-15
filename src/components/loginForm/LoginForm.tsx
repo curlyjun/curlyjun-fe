@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { FormEvent } from 'react';
 
 import * as cookieName from '@/constants/cookies';
+import * as testLabels from '@/constants/testLabels';
 import { useValidInputValue } from '@/hooks/useValidInputValue';
 
 import * as Styled from './LoginForm.style';
@@ -16,7 +17,7 @@ const LoginForm = ({}: LoginFormProps) => {
     pattern: /^[a-zA-Z\d]{5,30}$/,
   });
   const password = useValidInputValue({
-    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/,
+    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/,
   });
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -40,13 +41,16 @@ const LoginForm = ({}: LoginFormProps) => {
         <Styled.TextInput
           id='id'
           type='text'
+          aria-label={testLabels.ID_INPUT}
           value={id.value}
           isInvalid={id.showErrorMessage}
           onChange={id.onChange}
           onBlur={id.onBlur}
         />
         {id.showErrorMessage && (
-          <Styled.InvalidText>올바른 아이디 형식으로 입력해주세요.</Styled.InvalidText>
+          <Styled.InvalidText aria-label={testLabels.ID_ERROR_P}>
+            올바른 아이디 형식으로 입력해주세요.
+          </Styled.InvalidText>
         )}
       </Styled.Fieldset>
 
@@ -55,17 +59,24 @@ const LoginForm = ({}: LoginFormProps) => {
         <Styled.TextInput
           id='password'
           type='password'
+          aria-label={testLabels.PASSWORD_INPUT}
           value={password.value}
           isInvalid={password.showErrorMessage}
           onChange={password.onChange}
           onBlur={password.onBlur}
         />
         {password.showErrorMessage && (
-          <Styled.InvalidText>올바른 비밀번호 형식으로 입력해주세요.</Styled.InvalidText>
+          <Styled.InvalidText aria-label={testLabels.PASSWORD_ERROR_P}>
+            올바른 비밀번호 형식으로 입력해주세요.
+          </Styled.InvalidText>
         )}
       </Styled.Fieldset>
 
-      <Styled.LoginButton type='submit' disabled={!id.isValid || !password.isValid}>
+      <Styled.LoginButton
+        type='submit'
+        aria-label={testLabels.LOGIN_BUTTON}
+        disabled={!id.isValid || !password.isValid}
+      >
         로그인
       </Styled.LoginButton>
     </Styled.Form>
