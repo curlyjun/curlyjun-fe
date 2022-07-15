@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 /**
  * 스크롤 복원 custom hook
@@ -15,10 +15,12 @@ export const useScrollRestoration = ({
   fromPathname?: string;
 }) => {
   const router = useRouter();
+  const beforePathname = useRef<string>(router.pathname);
   const scrollYPosition = useRef(0);
 
   useEffect(() => {
     const onRouteChangeStart = () => {
+      beforePathname.current = router.pathname;
       if (router.pathname === targetPathname) {
         scrollYPosition.current = window.scrollY;
       }
@@ -26,7 +28,7 @@ export const useScrollRestoration = ({
 
     const onRouteChangeComplete = (path: string) => {
       if (path === targetPathname) {
-        if (fromPathname && router.pathname !== fromPathname) return;
+        if (fromPathname && beforePathname.current !== fromPathname) return;
 
         scrollTo({ top: scrollYPosition.current });
       }
