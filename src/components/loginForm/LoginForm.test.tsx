@@ -1,11 +1,21 @@
 import { fireEvent, render } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import * as testLabels from '@/constants/testLabels';
 
 import LoginForm from './LoginForm';
 
+const queryClient = new QueryClient();
+
+const renderLoginForm = () =>
+  render(
+    <QueryClientProvider client={queryClient}>
+      <LoginForm />
+    </QueryClientProvider>
+  );
+
 const setUpInput = (labelText: string) => {
-  const loginForm = render(<LoginForm />);
+  const loginForm = renderLoginForm();
   const input = loginForm.getByLabelText(labelText) as HTMLInputElement;
 
   return { loginForm, input };
@@ -13,7 +23,7 @@ const setUpInput = (labelText: string) => {
 
 describe('로그인 테스트', () => {
   test('유효한 값 입력 전 로그인 버튼 비활성화 상태', () => {
-    const loginForm = render(<LoginForm />);
+    const loginForm = renderLoginForm();
     const loginBtn = loginForm.getByLabelText(testLabels.LOGIN_BUTTON);
     expect(loginBtn).toBeDisabled();
   });
@@ -22,7 +32,7 @@ describe('로그인 테스트', () => {
     const validId = 'sixshop';
     const validPassword = 'Sixshop123';
 
-    const loginForm = render(<LoginForm />);
+    const loginForm = renderLoginForm();
     const idInput = loginForm.getByLabelText(testLabels.ID_INPUT);
     const passwordInput = loginForm.getByLabelText(testLabels.PASSWORD_INPUT);
     fireEvent.change(idInput, { target: { value: validId } });
