@@ -26,7 +26,9 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <Container>
-          <h1>오류가 발생했어요.</h1>
+          <h1>HAUS</h1>
+          <p>오류가 발생했어요.</p>
+          <button onClick={() => (window.location.href = '/')}>홈으로 가기</button>
         </Container>
       );
     }
@@ -44,5 +46,14 @@ const Container = styled.main`
   h1 {
     font-size: 32px;
     font-weight: bold;
+  }
+
+  button {
+    margin-top: 40px;
+    padding: 10px 20px;
+    color: #6d6bd1;
+    border: 1px solid #6d6bd1;
+    border-radius: 5px;
+    cursor: pointer;
   }
 `;
