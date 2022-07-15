@@ -4,10 +4,11 @@ import { dehydrate, QueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import * as queryKeys from '@/constants/queryKeys';
-import { fetchProduct, useProductQuery } from '@/hooks/queries/useProductQuery';
+import { fetchProduct } from '@/hooks/queries/useProductQuery';
+import { useProductQueryWithRouter } from '@/hooks/useProductQueryWithRouter';
 
 const ProductDetailPage: NextPage = () => {
-  const { data } = useProductQuery();
+  const { data } = useProductQueryWithRouter();
 
   if (!data) {
     return <NotFoundProduct>존재하지 않는 상품입니다.</NotFoundProduct>;

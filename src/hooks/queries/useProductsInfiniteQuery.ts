@@ -2,7 +2,7 @@ import { useInfiniteQuery } from 'react-query';
 
 import * as queryKeys from '@/constants/queryKeys';
 
-import { fetchProducts } from './useProductsPaginationQuery';
+import { fetchProducts } from './useProductsQuery';
 
 export const fetchProductsForInfinite = async (size: number) => {
   const result = await fetchProducts(size, 16);

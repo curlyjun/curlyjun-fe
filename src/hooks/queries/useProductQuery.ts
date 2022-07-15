@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
 import * as queryKeys from '@/constants/queryKeys';
@@ -22,8 +21,6 @@ export const fetchProduct = async (id: string) => {
   }
 };
 
-export const useProductQuery = () => {
-  const { query } = useRouter();
-
-  return useQuery([queryKeys.PRODUCT, query.id], () => fetchProduct(query.id as string));
+export const useProductQuery = (productId: string) => {
+  return useQuery([queryKeys.PRODUCT, productId], () => fetchProduct(productId));
 };

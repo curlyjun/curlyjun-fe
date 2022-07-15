@@ -6,10 +6,10 @@ import { NotFoundContent } from '@/components/notFoundContent';
 import { Pagination } from '@/components/pagination';
 import { ProductList } from '@/components/productList';
 import { SkeletonProductList } from '@/components/skeletonProductList';
-import { useProductsPaginationQuery } from '@/hooks/queries/useProductsPaginationQuery';
+import { useProductsQueryWithRouter } from '@/hooks/useProductsQueryWithRouter';
 
 const PaginationPage: NextPage = () => {
-  const { data, isFetched, isError } = useProductsPaginationQuery();
+  const { data, isFetched, isError } = useProductsQueryWithRouter();
 
   if (!isFetched) {
     return (

@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 
 import * as queryKeys from '@/constants/queryKeys';
 import { Product } from '@/types/product';
-import { convertQueryStringToPositiveNumber, isAxiosNotFoundedError } from '@/utilities';
+import { isAxiosNotFoundedError } from '@/utilities';
 
 interface ProductsResponse {
   data: {
@@ -12,6 +11,8 @@ interface ProductsResponse {
     totalCount: number;
   };
 }
+
+type FetchProductsResult = ProductsResponse['data'] | null;
 
 export const fetchProducts = async (page: number, size: number) => {
   try {
@@ -29,16 +30,19 @@ export const fetchProducts = async (page: number, size: number) => {
   }
 };
 
-export const useProductsPaginationQuery = () => {
-  const { query, isReady } = useRouter();
-
-  const page = convertQueryStringToPositiveNumber(query.page) || 1;
-  const size = convertQueryStringToPositiveNumber(query.size) || 10;
-
-  const queryResult = useQuery(
+export const useProductsQuery = ({
+  size,
+  page,
+  options,
+}: {
+  size: number;
+  page: number;
+  options: UseQueryOptions<FetchProductsResult>;
+}) => {
+  const queryResult = useQuery<FetchProductsResult>(
     [queryKeys.PRODUCTS_PAGINATION, size, page],
     () => fetchProducts(page, size),
-    { enabled: isReady }
+    options
   );
 
   return queryResult;
