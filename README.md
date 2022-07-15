@@ -90,6 +90,8 @@
   ```
   - 일관된 컴포넌트를 생성할 수 있는 shell script를 작성했습니다.
   - styled-components 로 스타일 된 컴포넌트를 일반 컴포넌트와 구분하기 위해 스타일 파일을 분리하고 Styled(`import * as Styled from '{ComponentName}.styled.ts'`)로 가져와 사용했습니다.
+- SEO (Search Engin Optimization)
+  - Lighthouse를 확인하며 SEO 작업을 진행했습니다.(100점)
 
 ## 문서 오탈자
 
