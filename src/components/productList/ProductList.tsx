@@ -4,10 +4,12 @@ import { Product } from '@/types/product';
 import * as Styled from './ProductList.style';
 
 interface ProductListProps {
-  products: Product[];
+  products?: Product[];
 }
 
 const ProductList = ({ products }: ProductListProps) => {
+  if (!products) return <></>;
+
   return (
     <Styled.Container>
       {products.map((product) => (

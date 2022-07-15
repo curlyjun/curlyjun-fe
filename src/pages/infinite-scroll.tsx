@@ -20,7 +20,7 @@ const InfiniteScrollPage: NextPage = () => {
 
   return (
     <Container>
-      {data?.pages.map((page, idx) => (
+      {data.pages.map((page, idx) => (
         <ProductList key={`infinite-${idx}`} products={page?.products} />
       ))}
       <IntersectionChecker onIntersect={fetchNextPage} />
