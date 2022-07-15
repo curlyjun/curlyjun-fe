@@ -23,19 +23,14 @@
 
 - 각 페이지 렌더링 방식
   - pagination
-    - 쿼리에 따라 데이터가 달라지고 리스트 페이지다보니 Pre-rendering보다는 Skeleton UI로 페이지를 보여주고 데이터를 클라이언트에서 불러오도록 했습니다.
+    - 쿼리에 따라 데이터가 달라지고 리스트 페이지이기 때문에 Pre-rendering보다는 Skeleton UI로 페이지를 보여주고 데이터를 클라이언트에서 불러오도록 했습니다.
   - infinite-scroll
-    - pagination 페이지 처럼 리스트 페이지이기 때문에 Skeleton UI + Client side data fetch 방식을 채택했습니다.
+    - pagination 페이지처럼 리스트 페이지이기 때문에 Skeleton UI + Client side data fetch 방식을 채택했습니다.
   - products/[id]
     - 제품 상세 페이지는 썸네일이나 가격에 변동이 자주 있을 것이라 생각해서 getServerSideProps를 사용해 서버에서 미리 html을 렌더링 할 수 있도록 했습니다.
-- 에러 핸들링
-  - api 서버에서 404(Not founded) 로 보내주는 요청은 `null`을 리턴해 존재하지 않음을 UI 상으로 알려줍니다.
-  - 나머지 에러는 ErrorBoundary 컴포넌트를 이용해서 핸들링 하고 있습니다. (해당 프로젝트에서는 에러가 있음만을 UI상으로 보여줍니다.)
 - 전역 상태 관리
-  - 서버 상태 이외에 클라이언트에서 전역 상태관리할 값이 없다고 판단하여 react-query만 사용했습니다.
-- 자동화(CI)
 
-  - github actions를 통해 Pull Request 시 Test, Lint, Build 과정에 문제가 없는지 확인합니다.
+  - 서버 상태 이외에 클라이언트에서 전역 상태 관리할 값이 없다고 판단하여 react-query만 사용했습니다.
 
 - 의문점이 있다면 가정을 세우고 진행
   - [여기](#의문점)서 확인 가능합니다.
@@ -43,7 +38,7 @@
 ### 2) 로그인
 
 - 아이디/비밀번호 유효성 검사
-  - useValidInputValue 커스텀 훅을 만들어 정규표현식을 사용해 유효성 검사를 했습니다.
+  - useValidInputValue 커스텀 훅을 만들어 정규 표현식을 사용해 유효성 검사를 했습니다.
 - 새로고침 시 로그인 유지
   - 로그인 시 정보를 cookie에 담아두고 새로고침 시 쿠키를 확인합니다.
 - 로그인 된 상태에서 로그인 화면(`/login`)에 진입하면 홈 화면(`/`)으로 리다이렉트
@@ -72,11 +67,29 @@
   - useScrollRestoration 이라는 커스텀 훅을 구현하여 스크롤을 복원합니다.
   - nextjs의 [router.events](https://nextjs.org/docs/api-reference/next/router#routerevents)를 사용했습니다.
 - 이미지 lazy loading
-  - 무한 스크롤을 위해 만들어둔 useIntersectionObserver hook을 사용해 화면에 보여지기 100px 전에 이미지를 불러오도록 했습니다.
+  - 무한 스크롤을 위해 만들어둔 useIntersectionObserver hook을 사용해 화면에 보이기 100px 전에 이미지를 불러오도록 했습니다.
 
 ---
 
-- styled-components 로 스타일된 컴포넌트를 일반 컴포넌트와 구분하기위해 스타일 파일을 분리하고 Styled 로 가져와 사용했습니다.
+### etc.
+
+- eslint
+  - import order, 사용하지 않는 변수,모듈 확인을 위한 린트를 구성했습니다.
+- 자동화(CI)
+
+  - github actions를 통해 Pull Request 시 Test, Lint, Build 과정에 문제가 없는지 확인합니다.
+
+- 에러 핸들링
+  - api 서버에서 404(Not founded)로 보내주는 요청은 `null`을 리턴해 존재하지 않음을 UI 상으로 알려줍니다.
+  - 나머지 에러는 ErrorBoundary 컴포넌트를 이용해서 핸들링 하고 있습니다. (해당 프로젝트에서는 에러가 있음만을 UI 상으로 보여줍니다.)
+- 컴포넌트 구조
+  ```
+    index.ts  // 내보내기를 위한 index파일
+    {ComponentName}.tsx // 컴포넌트 파일
+    {ComponentName}.style.ts  // 스타일 파일
+  ```
+  - 일관된 컴포넌트를 생성할 수 있는 shell script를 작성했습니다.
+  - styled-components 로 스타일된 컴포넌트를 일반 컴포넌트와 구분하기위해 스타일 파일을 분리하고 Styled(`import * as Styled from '{ComponentName}.styled.ts'`)로 가져와 사용했습니다.
 
 ## 문서 오탈자
 
