@@ -5,22 +5,20 @@ import styled from 'styled-components';
 
 const HomePage: NextPage = () => {
   return (
-    <>
-      <Container>
-        <Link href='/pagination?page=1' passHref>
-          <StyledLink>pagination</StyledLink>
-        </Link>
-        <Link href='/infinite-scroll' passHref>
-          <StyledLink>infinite scroll</StyledLink>
-        </Link>
-      </Container>
-    </>
+    <Container>
+      <Link href='/pagination?page=1' passHref>
+        <StyledLink>pagination</StyledLink>
+      </Link>
+      <Link href='/infinite-scroll' passHref>
+        <StyledLink>infinite scroll</StyledLink>
+      </Link>
+    </Container>
   );
 };
 
 export default HomePage;
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;

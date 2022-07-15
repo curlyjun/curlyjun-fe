@@ -6,7 +6,11 @@ import * as cookieName from '@/constants/cookies';
 import { fetchUser } from '@/hooks/queries/useUserQuery';
 
 const LoginPage: NextPage = () => {
-  return <LoginForm />;
+  return (
+    <main>
+      <LoginForm />
+    </main>
+  );
 };
 
 export default LoginPage;
