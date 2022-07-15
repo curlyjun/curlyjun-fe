@@ -20,7 +20,13 @@ setupMSW();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
-    () => new QueryClient({ defaultOptions: { queries: { useErrorBoundary: true, retry: 1 } } })
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: { useErrorBoundary: true, retry: 1 },
+          mutations: { useErrorBoundary: true },
+        },
+      })
   );
   useScrollRestoration({ targetPathname: '/infinite-scroll', fromPathname: '/products/[id]' });
 

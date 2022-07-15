@@ -1,10 +1,10 @@
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { FormEvent } from 'react';
 
 import * as cookieName from '@/constants/cookies';
 import * as testLabels from '@/constants/testLabels';
+import { useLoginMutation } from '@/hooks/useLoginMutation';
 import { useValidInputValue } from '@/hooks/useValidInputValue';
 
 import * as Styled from './LoginForm.style';
@@ -13,6 +13,8 @@ interface LoginFormProps {}
 
 const LoginForm = ({}: LoginFormProps) => {
   const router = useRouter();
+  const { mutate } = useLoginMutation();
+
   const id = useValidInputValue({
     pattern: /^[a-zA-Z\d]{5,30}$/,
   });
@@ -23,15 +25,16 @@ const LoginForm = ({}: LoginFormProps) => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { data } = await axios.post('/login', {
-      id: id.value,
-      password: password.value,
-    });
-
-    Cookies.set(cookieName.USER_ID, data.data.user.ID);
-    Cookies.set(cookieName.ACCESS_TOKEN, data.data.accessToken);
-
-    router.push('/');
+    mutate(
+      { id: id.value, password: password.value },
+      {
+        onSuccess: ({ user, accessToken }) => {
+          Cookies.set(cookieName.USER_ID, user.ID);
+          Cookies.set(cookieName.ACCESS_TOKEN, accessToken);
+          router.push('/');
+        },
+      }
+    );
   };
 
   return (
