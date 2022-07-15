@@ -48,12 +48,12 @@
   - 간단한 UI 위주의 테스트만 진행했습니다.
     - 입력 값에 따른 로그인 버튼 활성화 상태
     - 유효하지 않은 값에 대한 에러 체크
-    - 유효한 값 입력시 에러 문구 삭제 체크
+    - 유효한 값 입력 시 에러 문구 삭제 체크
 
 ### 3) 페이지네이션
 
 - Pagination 컴포넌트
-  - api 문서를 확인해보니 `size`가 fix된 값이 아니여서 `size` 값에 따라 페이지네이션이 적용되도록 로직을 작성했습니다.
+  - api 문서를 확인해 보니 `size`가 fix된 값이 아니여서 `size` 값에 따라 페이지네이션이 적용되도록 로직을 작성했습니다.
 - 세 자리마다 콤마 구분
   - 자바스크립트 내장 함수인 [Number.prototype.toLocaleString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString)을 사용했습니다.
 
@@ -74,7 +74,7 @@
 ### etc.
 
 - eslint
-  - import order, 사용하지 않는 변수,모듈 확인을 위한 린트를 구성했습니다.
+  - import order, 사용하지 않는 변수, 모듈 확인을 위한 린트를 구성했습니다.
 - 자동화(CI)
 
   - github actions를 통해 Pull Request 시 Test, Lint, Build 과정에 문제가 없는지 확인합니다.
@@ -84,20 +84,20 @@
   - 나머지 에러는 ErrorBoundary 컴포넌트를 이용해서 핸들링 하고 있습니다. (해당 프로젝트에서는 에러가 있음만을 UI 상으로 보여줍니다.)
 - 컴포넌트 구조
   ```
-    index.ts  // 내보내기를 위한 index파일
+    index.ts  // 내보내기를 위한 index 파일
     {ComponentName}.tsx // 컴포넌트 파일
     {ComponentName}.style.ts  // 스타일 파일
   ```
   - 일관된 컴포넌트를 생성할 수 있는 shell script를 작성했습니다.
-  - styled-components 로 스타일된 컴포넌트를 일반 컴포넌트와 구분하기위해 스타일 파일을 분리하고 Styled(`import * as Styled from '{ComponentName}.styled.ts'`)로 가져와 사용했습니다.
+  - styled-components 로 스타일 된 컴포넌트를 일반 컴포넌트와 구분하기 위해 스타일 파일을 분리하고 Styled(`import * as Styled from '{ComponentName}.styled.ts'`)로 가져와 사용했습니다.
 
 ## 문서 오탈자
 
 - 과제 문서 확인 중 발견한 오탈자 공유드립니다.
-  - **API문서**/로그인,유저 정보 조회 -> name, id -> NAME, ID
+  - **API문서**/로그인, 유저 정보 조회 -> name, id -> NAME, ID
   - **API문서**/상품 목록 조회 producs -> products
 
 ## 의문점
 
-- 해당 과제(프로젝트)는 msw에 의존하고 있습니다. 정의된 핸들러들은 상대 경로를 사용하고있지만 node 환경에선 절대경로를 사용해야됨을 msw 문서를 통해 확인했습니다. 상대 경로 사용시 서버 환경(getServerSideProps)을 사용하는데 문제가 있어 핸들러 파일에 임의의 절대 경로(`https://api.sixshop.dev`)를 추가했습니다.
+- 해당 과제(프로젝트)는 msw에 의존하고 있습니다. 정의된 핸들러들은 상대 경로를 사용하고 있지만 node 환경에선 절대 경로를 사용해야 됨을 msw 문서를 통해 확인했습니다. 상대 경로 사용 시 서버 환경(getServerSideProps)을 사용하는데 문제가 있어 핸들러 파일에 임의의 절대 경로(`https://api.sixshop.dev`)를 추가했습니다.
   - [확인한 msw 문서](https://mswjs.io/docs/getting-started/integrate/node#direct-usage)
