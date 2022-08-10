@@ -1,27 +1,28 @@
-import Link from 'next/link';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 import styled from 'styled-components';
 
-import products from '../../api/data/products.json';
+import * as queryKeys from '@/constants/queryKeys';
+import { fetchProduct } from '@/hooks/queries/useProductQuery';
+import { useProductQueryWithRouter } from '@/hooks/useProductQueryWithRouter';
 
 const ProductDetailPage: NextPage = () => {
-  const product = products[0];
+  const { data } = useProductQueryWithRouter();
+
+  if (!data) {
+    return <NotFoundProduct>존재하지 않는 상품입니다.</NotFoundProduct>;
+  }
 
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
-      <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
+      <Thumbnail
+        alt='product-thumbnail-image'
+        src={data.thumbnail ? data.thumbnail : '/defaultThumbnail.jpg'}
+      />
       <ProductInfoWrapper>
-        <Name>{product.name}</Name>
-        <Price>{product.price}원</Price>
+        <Name>{data.name}</Name>
+        <Price>{data.price.toLocaleString('ko-KR')}원</Price>
       </ProductInfoWrapper>
     </>
   );
@@ -29,16 +30,17 @@ const ProductDetailPage: NextPage = () => {
 
 export default ProductDetailPage;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const productId = query.id as string;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery([queryKeys.PRODUCT, productId], () => fetchProduct(productId));
 
-const Title = styled.a`
-  font-size: 48px;
-`;
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
 
 const Thumbnail = styled.img`
   width: 100%;
@@ -58,4 +60,9 @@ const Name = styled.div`
 const Price = styled.div`
   font-size: 18px;
   margin-top: 8px;
+`;
+
+const NotFoundProduct = styled.div`
+  text-align: center;
+  padding-top: 200px;
 `;

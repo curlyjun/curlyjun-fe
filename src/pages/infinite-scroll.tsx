@@ -1,43 +1,36 @@
-import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 
-import products from '../api/data/products.json';
-import ProductList from '../components/ProductList';
+import { IntersectionChecker } from '@/components/intersectionChecker';
+import { ProductList } from '@/components/productList';
+import { SkeletonProductList } from '@/components/skeletonProductList';
+import { useProductsInfiniteQuery } from '@/hooks/queries/useProductsInfiniteQuery';
 
 const InfiniteScrollPage: NextPage = () => {
-  return (
-    <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
+  const { data, isFetched, fetchNextPage } = useProductsInfiniteQuery();
+
+  if (!isFetched || !data) {
+    return (
       <Container>
-        <ProductList products={products} />
+        <SkeletonProductList />
       </Container>
-    </>
+    );
+  }
+
+  return (
+    <Container>
+      {data.pages.map((page, idx) => (
+        <ProductList key={`infinite-${idx}`} products={page?.products} />
+      ))}
+      <IntersectionChecker onIntersect={fetchNextPage} />
+    </Container>
   );
 };
 
 export default InfiniteScrollPage;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Title = styled.a`
-  font-size: 48px;
-`;
-
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;

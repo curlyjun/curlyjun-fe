@@ -44,6 +44,7 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+    cursor: pointer;
   }
 
   input, img, fieldset, iframe {

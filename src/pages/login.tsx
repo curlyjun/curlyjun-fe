@@ -1,62 +1,43 @@
-import Link from 'next/link';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
-import styled from 'styled-components';
+
+import { LoginForm } from '@/components/loginForm';
+import * as cookieName from '@/constants/cookies';
+import { fetchUser } from '@/hooks/queries/useUserQuery';
 
 const LoginPage: NextPage = () => {
   return (
-    <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
-      <Form>
-        <div>아이디</div>
-        <TextInput type='text' />
-        <div>비밀번호</div>
-        <TextInput type='password' />
-        <LoginButton disabled>로그인</LoginButton>
-      </Form>
-    </>
+    <main>
+      <LoginForm />
+    </main>
   );
 };
 
 export default LoginPage;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const userId = req.cookies[cookieName.USER_ID];
 
-const Title = styled.a`
-  font-size: 48px;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 40px;
-  padding: 0 20px 40px;
-`;
-
-const TextInput = styled.input`
-  border: 1px solid #000;
-`;
-
-const LoginButton = styled.button`
-  margin-top: 40px;
-  padding: 20px;
-  border-radius: 12px;
-  background-color: #222;
-  color: #fff;
-
-  &:disabled {
-    background-color: #e2e2ea;
+  if (userId) {
+    try {
+      /** 유저 검증 후 유저 있으면 redirect */
+      const user = await fetchUser(userId);
+      if (user?.NAME) {
+        return {
+          redirect: {
+            destination: '/',
+            permanent: false,
+          },
+        };
+      }
+    } catch (error) {
+      return {
+        props: {},
+      };
+    }
   }
-`;
+
+  return {
+    props: {},
+  };
+};
